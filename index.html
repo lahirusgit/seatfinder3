@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seat Finder</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Playfair+Display:ital,wght@1,600&family=Quicksand&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: black;
+      text-align: center;
+      background-image: url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .overlay {
+      backdrop-filter: blur(10px);
+      min-height: 100vh;
+      padding: 60px 20px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 40px;
+      margin-bottom: 10px;
+      font-style: italic;
+      color: #f4a896;
+    }
+
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 76px;
+      font-weight: bold;
+      color: peachpuff;
+      margin: 0 0 20px;
+    }
+
+    .search-container {
+      margin-top: 30px;
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+    }
+
+    .suggestions {
+      background: white;
+      color: black;
+      position: absolute;
+      width: 100%;
+      border-radius: 0 0 8px 8px;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 10;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestions div:hover {
+      background-color: #f0f0f0;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      color: black;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    .footer {
+      margin-top: 60px;
+      font-family: 'Dancing Script', cursive;
+      font-style: italic;
+      font-size: 72px;
+      color: #f4a896;
+      text-shadow: 1px 1px 2px #00000080;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h2>Lasindu & Sachini</h2>
+    <h1>Find your seat here</h1>
+
+    <div class="search-container">
+      <input type="text" id="nameInput" placeholder="Enter your name" oninput="showSuggestions()" />
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <div id="result"></div>
+
+    <div class="footer">
+      Enjoy our wedding, create beautiful memories
+    </div>
+  </div>
+
+  <script>
+    const nameToTable = {
+      "Hiruni Hewagamage": "Table 18",
+      "Sachitha Withanage": "Table 18",
+      "Gratia Gamage": "Table 18",
+      "Malshani Ariyarathne": "Table 18",
+      "Tharushi Imeshani": "Table 18",
+      "Kaveesha Thiresha": "Table 18",
+      "Hasitha Sarathchandra": "Table 18",
+      "Samadhi Attanayake": "Table 18",
+      "Linisha Siriwardana": "Table 18",
+      "Madara Wijesiri": "Table 18",
+      "Chandi G G D": "Table 23",
+      "Buddhika Dassanayaka": "Table 23",
+      "Irosha": "Table 23",
+      "Dinesh": "Table 23",
+      "Thiumi": "Table 23",
+      "Shashini": "Table 23",
+      "Shahama": "Table 23",
+      "Darshika": "Table 23",
+      "Eshani": "Table 23",
+      "Hasini": "Table 23",
+      "Hansani": "Table 23",
+      "Lahiru Sonnadara": "Table 28",
+      "Pavani Haputhanthri": "Table 28",
+      "Charith Weerasekara": "Table 28",
+      "Udani Sonnadara": "Table 28",
+      "Inudi Weerasekara": "Table 28",
+      "Aruna Niroshana": "Table 28",
+      "Sachini Pramodya": "Table 28",
+      "Kalpa De Silva": "Table 28",
+      "Tharindu Sarathchandra": "Table 28",
+      "Esini De Silva": "Table 28",
+      "Vinula De Silva": "Table 28"
+    };
+
+    const input = document.getElementById("nameInput");
+    const suggestionsBox = document.getElementById("suggestions");
+    const resultBox = document.getElementById("result");
+
+    function showSuggestions() {
+      const val = input.value.trim().toLowerCase();
+      suggestionsBox.innerHTML = '';
+      resultBox.textContent = '';
+
+      if (!val) return;
+
+      let firstMatches = [];
+      let otherMatches = [];
+
+      for (let fullName in nameToTable) {
+        const nameParts = fullName.toLowerCase().split(" ");
+        if (nameParts[0].startsWith(val)) {
+          firstMatches.push(fullName);
+        } else if (nameParts.some(p => p.startsWith(val))) {
+          otherMatches.push(fullName);
+        }
+      }
+
+      const finalList = [...firstMatches.sort(), ...otherMatches.sort()].slice(0, 6);
+
+      finalList.forEach(name => {
+        const div = document.createElement("div");
+        div.textContent = name;
+        div.onclick = () => {
+          input.value = name;
+          suggestionsBox.innerHTML = '';
+          resultBox.textContent = nameToTable[name];
+        };
+        suggestionsBox.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
