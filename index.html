@@ -7,55 +7,47 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Playfair+Display:ital,wght@1,600&family=Quicksand&display=swap');
 
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: 'Quicksand', sans-serif;
       color: black;
       text-align: center;
-      background-image: url('https://github.com/lahirusgit/seatfinder3/blob/main/Background4copy.jpg?raw=true');
+      background-image: url('https://github.com/lahirusgit/seatfinder3/blob/main/Background3%20-%20Copy%20(2).jpg?raw=true');
       background-size: cover;
       background-position: center;
-      background-attachment: fixed;
-      overflow: hidden;
-      position: relative;
-      height: 100vh;
+      background-repeat: no-repeat;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(10px);
-      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      min-height: 100vh;
       padding: 100px 20px 30px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      overflow-y: auto;
-    }
-
-    h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 38px;
-      margin-bottom: 10px;
-      font-style: italic;
-      color: #f7b289;
     }
 
     h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 72px;
       font-weight: bold;
-      color: #ffd5b6;
-      margin: 0 0 20px;
-      text-shadow: 1px 1px 4px #000;
+      color: peachpuff;
+      margin: 20px 0 10px;
+      text-shadow: 2px 2px 6px #00000060;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      margin: 0;
+      font-style: italic;
+      color: #f4a896;
     }
 
     .search-container {
-      margin-top: 100px;
+      margin-top: 20px;
       position: relative;
       width: 100%;
       max-width: 400px;
@@ -92,7 +84,7 @@
 
     #result {
       margin-top: 20px;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: bold;
       color: black;
       background-color: rgba(255, 255, 255, 0.85);
@@ -104,62 +96,38 @@
       margin-top: 60px;
       font-family: 'Dancing Script', cursive;
       font-style: italic;
-      font-size: 52px;
+      font-size: 60px;
       color: #f4a896;
       text-shadow: 1px 1px 2px #00000080;
     }
 
-    /* Snowflake effect */
+    /* Snowflake Effect */
     .snowflake {
-      position: fixed;
-      top: -10px;
       color: white;
       font-size: 1em;
+      font-family: Arial, sans-serif;
+      text-shadow: 0 0 5px #fff;
+      position: fixed;
+      top: -10px;
+      z-index: 1000;
+      animation: fall linear infinite;
+      user-select: none;
       pointer-events: none;
-      animation-name: fall;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-10px); opacity: 1; }
-      100% { transform: translateY(110vh); opacity: 0; }
-    }
-
-    @media screen and (max-width: 600px) {
-      h2 {
-        font-size: 40px;
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
       }
-
-      h1 {
-        font-size: 22px;
-      }
-
-      .overlay {
-        padding: 30px 10px 20px;
-      }
-
-      input[type="text"] {
-        font-size: 16px;
-        padding: 10px;
-      }
-
-      #result {
-        font-size: 24px;
-        padding: 8px 16px;
-      }
-
-      .footer {
-        font-size: 28px;
-        margin-top: 30px;
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Snowflake container -->
-  <div id="snowContainer"></div>
-
   <div class="overlay">
     <h2>Lasindu & Sachini</h2>
     <h1>Find your seat here</h1>
@@ -176,8 +144,8 @@
     </div>
   </div>
 
+  <!-- Snowflake Generator -->
   <script>
-    // Guest list mapping
     const nameToTable = {
       "Hiruni Hewagamage": "Table 18",
       "Sachitha Withanage": "Table 18",
@@ -250,22 +218,23 @@
       });
     }
 
-    // Snowflake animation
-    function createSnowflakes() {
-      const snowContainer = document.getElementById("snowContainer");
-      for (let i = 0; i < 40; i++) {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
-        snowflake.textContent = "❄";
-        snowflake.style.left = Math.random() * 100 + "vw";
-        snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
-        snowflake.style.animationDuration = (Math.random() * 10 + 10) + "s";
-        snowflake.style.opacity = Math.random() * 0.6 + 0.2;
-        snowContainer.appendChild(snowflake);
-      }
+    // Snowflake Generator
+    function createSnowflake() {
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      snowflake.textContent = "❄";
+
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + "s";
+      snowflake.style.fontSize = 10 + Math.random() * 14 + "px";
+      document.body.appendChild(snowflake);
+
+      setTimeout(() => {
+        snowflake.remove();
+      }, 10000);
     }
 
-    createSnowflakes();
+    setInterval(createSnowflake, 300);
   </script>
 </body>
 </html>
