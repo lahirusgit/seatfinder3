@@ -15,11 +15,14 @@
       background-image: url('https://github.com/lahirusgit/seatfinder3/blob/main/Background3%20-%20Copy%20(2).jpg?raw=true');
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow-x: hidden;
     }
 
     .overlay {
-      backdrop-filter: blur(3px);
-	  background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.5); /* Darker overlay */
+      backdrop-filter: blur(4px); /* Less blur */
       min-height: 100vh;
       padding: 60px 20px 30px;
       display: flex;
@@ -33,15 +36,14 @@
       font-size: 40px;
       margin-bottom: 10px;
       font-style: italic;
-      color: #e17b6d;
-	  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      color: #f6a683; /* Soft peach */
     }
 
     h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 76px;
       font-weight: bold;
-      color: #f4a896;
+      color: #ffe5d4; /* Light peach-cream */
       margin: 0 0 20px;
     }
 
@@ -85,21 +87,43 @@
       margin-top: 20px;
       font-size: 32px;
       font-weight: bold;
-      color: #4a2e2e;
-      background-color: rgba(255, 248, 240, 0.85);
-      padding: 12px 24px;
+      color: black;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 10px 20px;
       border-radius: 10px;
-	  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-	  transition: all 0.3s ease-in-out;
     }
 
     .footer {
       margin-top: 60px;
       font-family: 'Dancing Script', cursive;
       font-style: italic;
-      font-size: 72px;
-      color: #f08c6c;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      font-size: 60px;
+      color: #f6a683;
+      text-shadow: 1px 1px 2px #00000080;
+    }
+
+    /* Snowflake styles */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      z-index: 999;
+      color: white;
+      font-size: 1.2em;
+      user-select: none;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -192,6 +216,21 @@
         suggestionsBox.appendChild(div);
       });
     }
+
+    // Snowfall effect
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.textContent = '❄';
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      const duration = 5 + Math.random() * 5;
+      snowflake.style.animationDuration = duration + 's';
+      snowflake.style.fontSize = (10 + Math.random() * 10) + 'px';
+      document.body.appendChild(snowflake);
+      setTimeout(() => snowflake.remove(), duration * 1000);
+    }
+
+    setInterval(createSnowflake, 500);
   </script>
 </body>
 </html>
