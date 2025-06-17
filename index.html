@@ -7,6 +7,10 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Playfair+Display:ital,wght@1,600&family=Quicksand&display=swap');
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Quicksand', sans-serif;
@@ -16,15 +20,15 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      overflow: hidden;
       position: relative;
       height: 100vh;
-      overflow: hidden;
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(6px);
-      height: 100vh;
+      height: 100%;
       padding: 60px 20px 30px;
       display: flex;
       flex-direction: column;
@@ -35,7 +39,7 @@
 
     h1 {
       font-family: 'Dancing Script', cursive;
-      font-size: 40px;
+      font-size: 38px;
       margin-bottom: 10px;
       font-style: italic;
       color: #f7b289;
@@ -43,9 +47,9 @@
 
     h2 {
       font-family: 'Great Vibes', cursive;
-      font-size: 76px;
+      font-size: 72px;
       font-weight: bold;
-      color: #ffd9c2;
+      color: #ffd5b6;
       margin: 0 0 20px;
       text-shadow: 1px 1px 4px #000;
     }
@@ -100,30 +104,26 @@
       margin-top: 60px;
       font-family: 'Dancing Script', cursive;
       font-style: italic;
-      font-size: 72px;
+      font-size: 52px;
       color: #f4a896;
       text-shadow: 1px 1px 2px #00000080;
     }
 
-    /* Snow animation */
-    .snow {
+    /* Snowflake effect */
+    .snowflake {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: -10px;
+      color: white;
+      font-size: 1em;
       pointer-events: none;
-      background-image: url('https://raw.githubusercontent.com/lahirusgit/seatfinder3/main/snowflake.png');
-      background-repeat: repeat;
-      background-size: contain;
-      animation: snowFall 30s linear infinite;
-      opacity: 0.3;
-      z-index: 2;
+      animation-name: fall;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
     }
 
-    @keyframes snowFall {
-      0% { background-position: 0 -100%; }
-      100% { background-position: 0 100%; }
+    @keyframes fall {
+      0% { transform: translateY(-10px); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
     }
 
     @media screen and (max-width: 600px) {
@@ -150,14 +150,16 @@
       }
 
       .footer {
-        font-size: 32px;
+        font-size: 28px;
         margin-top: 30px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="snow"></div>
+  <!-- Snowflake container -->
+  <div id="snowContainer"></div>
+
   <div class="overlay">
     <h2>Lasindu & Sachini</h2>
     <h1>Find your seat here</h1>
@@ -175,6 +177,7 @@
   </div>
 
   <script>
+    // Guest list mapping
     const nameToTable = {
       "Hiruni Hewagamage": "Table 18",
       "Sachitha Withanage": "Table 18",
@@ -246,6 +249,23 @@
         suggestionsBox.appendChild(div);
       });
     }
+
+    // Snowflake animation
+    function createSnowflakes() {
+      const snowContainer = document.getElementById("snowContainer");
+      for (let i = 0; i < 40; i++) {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.textContent = "❄";
+        snowflake.style.left = Math.random() * 100 + "vw";
+        snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+        snowflake.style.animationDuration = (Math.random() * 10 + 10) + "s";
+        snowflake.style.opacity = Math.random() * 0.6 + 0.2;
+        snowContainer.appendChild(snowflake);
+      }
+    }
+
+    createSnowflakes();
   </script>
 </body>
 </html>
