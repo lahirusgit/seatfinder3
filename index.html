@@ -3,114 +3,265 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wedding Table Finder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
+  <title>Seat Finder</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(to bottom, #fffaf7, #fce8e6);
-      color: #4b2e2e;
-      text-align: center;
-      padding: 80px 20px;
-      overflow: hidden;
-    }
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.5em;
-      margin-bottom: 20px;
-      color: #a52a2a;
-    }
-    input {
-      padding: 12px;
-      font-size: 18px;
-      width: 320px;
-      border: 2px solid #d4a373;
-      border-radius: 6px;
-      outline: none;
-    }
-    #result {
-      margin-top: 25px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #8b0000;
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Playfair+Display:ital,wght@1,600&family=Quicksand&display=swap');
+
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* Snow effect */
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: black;
+      text-align: center;
+      background-image: url('https://github.com/lahirusgit/seatfinder3/blob/main/Background4copy.jpg?raw=true');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay {
+      backdrop-filter: blur(3px);
+      background-color: rgba(0, 0, 0, 0.4);
+      min-height: 100vh;
+      padding: 100px 20px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 72px;
+      font-weight: bold;
+      color: peachpuff;
+      margin: 20px 0 10px;
+      text-shadow: 2px 2px 6px #00000060;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      margin: 0;
+      font-style: italic;
+      color: #8b6f4e;
+      text-shadow: 1px 1px 3px #fbe9db;
+    }
+
+    .search-container {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    label {
+      display: none;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      background-color: #ffe5d0;
+      color: #4a2e1f;
+      font-weight: bold;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .suggestions {
+      background: #ffe5d0;
+      color: #4a2e1f;
+      position: absolute;
+      width: 100%;
+      border-radius: 0 0 8px 8px;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 10;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestions div:hover {
+      background-color: #ffd4b2;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffeadd;
+      background-color: #8b7461;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3)
+    }
+
+    .footer {
+      margin-top: 60px;
+      font-family: 'Dancing Script', cursive;
+      font-style: italic;
+      font-size: 45px;
+      color: #f4a896;
+      text-shadow: 1px 1px 2px #00000080;
+    }
+
+    /* Snowflake Effect */
     .snowflake {
+      color: white;
+      font-size: 1em;
+      font-family: Arial, sans-serif;
+      text-shadow: 0 0 5px #fff;
       position: fixed;
       top: -10px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      pointer-events: none;
+      z-index: 1000;
       animation: fall linear infinite;
+      user-select: none;
+      pointer-events: none;
     }
 
     @keyframes fall {
-      to {
-        transform: translateY(100vh);
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 56px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      .footer {
+        font-size: 32px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Our Wedding</h1>
-  <p style="font-size: 18px; margin-bottom: 40px;">Find your table by typing your full name below</p>
-  <input type="text" id="nameInput" placeholder="Enter your full name..." oninput="searchGuest()" />
-  <div id="result"></div>
+  <div class="overlay">
+    <h2>Lasindu & Sachini</h2>
+    <h1>Find your seat here</h1>
 
-  <!-- JavaScript for search -->
+    <div class="search-container">
+      <label for="nameInput">Name</label>
+      <input type="text" id="nameInput" placeholder="Enter your name" oninput="showSuggestions()" aria-label="Name search input"/>
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <div id="result"></div>
+
+    <div class="footer">
+      Enjoy our wedding, create beautiful memories
+    </div>
+  </div>
+
+  <!-- Snowflake Generator -->
   <script>
-    const guests = [
-      { name: "Mr. Achala Athukorala", table: "23" },
-      { name: "Ms. Achini Madhushani", table: "16" },
-      { name: "Mr. & Mrs. Ajith Ariyarathne", table: "11" },
-      { name: "Mr. & Mrs. Ajith Piyananda", table: "28" },
-      { name: "Mr. Akalanka", table: "30" },
-      { name: "Mr. Amila Indima", table: "32" },
-      { name: "Ms. Amitha Paranawithana", table: "22" },
-      { name: "Mr. & Mrs. Ananda Jayawardana", table: "22" },
-      { name: "Ms. Anjalee Merusinghe", table: "16" },
-      { name: "Mr. Anjana Ranawalage", table: "30" },
-      { name: "Mr. Anshula Attanayake", table: "32" },
-      { name: "Mr. & Mrs. Artigala", table: "24" },
-      { name: "Mr. & Mrs. Aruna Jayasinghe", table: "17" },
-      { name: "Mr. Aruna Niroshana Gamage", table: "12" },
-      { name: "Mr. Asela Ramawickrama", table: "31" },
-      { name: "Ms. Ashani Muthumala", table: "31" },
-      { name: "Mr. Asoka Dimbulkumbura", table: "31" },
-      { name: "Mr. Asoka Wickramanayaka", table: "23" }
-      // 👉 Add more guests here
-    ];
+    const nameToTable = {
+      "Hiruni Hewagamage": "Table 18",
+      "Sachitha Withanage": "Table 18",
+      "Gratia Gamage": "Table 18",
+      "Malshani Ariyarathne": "Table 18",
+      "Tharushi Imeshani": "Table 18",
+      "Kaveesha Thiresha": "Table 18",
+      "Hasitha Sarathchandra": "Table 18",
+      "Samadhi Attanayake": "Table 18",
+      "Linisha Siriwardana": "Table 18",
+      "Madara Wijesiri": "Table 18",
+      "Chandi G G D": "Table 23",
+      "Buddhika Dassanayaka": "Table 23",
+      "Irosha": "Table 23",
+      "Dinesh": "Table 23",
+      "Thiumi": "Table 23",
+      "Shashini": "Table 23",
+      "Shahama": "Table 23",
+      "Darshika": "Table 23",
+      "Eshani": "Table 23",
+      "Hasini": "Table 23",
+      "Hansani": "Table 23",
+      "Lahiru Sonnadara": "Table 28",
+      "Pavani Haputhanthri": "Table 28",
+      "Charith Weerasekara": "Table 28",
+      "Udani Sonnadara": "Table 28",
+      "Inudi Weerasekara": "Table 28",
+      "Aruna Niroshana": "Table 28",
+      "Sachini Pramodya": "Table 28",
+      "Kalpa De Silva": "Table 28",
+      "Tharindu Sarathchandra": "Table 28",
+      "Esini De Silva": "Table 28",
+      "Vinula De Silva": "Table 28"
+    };
 
-    function searchGuest() {
-      const input = document.getElementById("nameInput").value.trim().toLowerCase();
-      const resultDiv = document.getElementById("result");
-      const guest = guests.find(g => g.name.toLowerCase() === input);
-      if (guest) {
-        resultDiv.textContent = `You are seated at Table ${guest.table}`;
-      } else if (input.length > 0) {
-        resultDiv.textContent = "Name not found. Please try again.";
-      } else {
-        resultDiv.textContent = "";
+    const input = document.getElementById("nameInput");
+    const suggestionsBox = document.getElementById("suggestions");
+    const resultBox = document.getElementById("result");
+
+    function showSuggestions() {
+      const val = input.value.trim().toLowerCase();
+      suggestionsBox.innerHTML = '';
+      resultBox.textContent = '';
+
+      if (!val) return;
+
+      let firstMatches = [];
+      let otherMatches = [];
+
+      for (let fullName in nameToTable) {
+        const nameParts = fullName.toLowerCase().split(" ");
+        if (nameParts[0].startsWith(val)) {
+          firstMatches.push(fullName);
+        } else if (nameParts.some(p => p.startsWith(val))) {
+          otherMatches.push(fullName);
+        }
       }
+
+      const finalList = [...firstMatches.sort(), ...otherMatches.sort()].slice(0, 6);
+
+      finalList.forEach(name => {
+        const div = document.createElement("div");
+        div.textContent = name;
+        div.onclick = () => {
+          input.value = name;
+          suggestionsBox.innerHTML = '';
+          resultBox.textContent = nameToTable[name];
+        };
+        suggestionsBox.appendChild(div);
+      });
     }
 
-    // Snowflake animation
+    // Snowflake Generator
     function createSnowflake() {
       const snowflake = document.createElement("div");
       snowflake.classList.add("snowflake");
-      const size = Math.random() * 8 + 2;
-      snowflake.style.width = `${size}px`;
-      snowflake.style.height = `${size}px`;
-      snowflake.style.left = `${Math.random() * window.innerWidth}px`;
-      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      snowflake.textContent = "❄";
+
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + "s";
+      snowflake.style.fontSize = 10 + Math.random() * 14 + "px";
       document.body.appendChild(snowflake);
-      setTimeout(() => snowflake.remove(), 5000);
+
+      setTimeout(() => {
+        snowflake.remove();
+      }, 10000);
     }
 
-    setInterval(createSnowflake, 150);
+    setInterval(createSnowflake, 300);
   </script>
 </body>
 </html>
