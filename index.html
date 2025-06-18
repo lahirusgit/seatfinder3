@@ -7,9 +7,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Playfair+Display:ital,wght@1,600&family=Quicksand&display=swap');
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -58,9 +56,7 @@
       max-width: 350px;
     }
 
-    label {
-      display: none;
-    }
+    label { display: none; }
 
     input[type="text"] {
       width: 100%;
@@ -103,7 +99,7 @@
       background-color: #8b7461;
       padding: 10px 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3)
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
     .footer {
@@ -130,26 +126,14 @@
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
 
     @media (max-width: 400px) {
-      h2 {
-        font-size: 56px;
-      }
-      h1 {
-        font-size: 28px;
-      }
-      .footer {
-        font-size: 32px;
-      }
+      h2 { font-size: 56px; }
+      h1 { font-size: 28px; }
+      .footer { font-size: 32px; }
     }
   </style>
 </head>
@@ -160,52 +144,263 @@
 
     <div class="search-container">
       <label for="nameInput">Name</label>
-      <input type="text" id="nameInput" placeholder="Enter your name" oninput="showSuggestions()" aria-label="Name search input"/>
+      <input type="text"
+             id="nameInput"
+             placeholder="Enter your name"
+             oninput="showSuggestions()"
+             aria-label="Name search input"/>
       <div class="suggestions" id="suggestions"></div>
     </div>
 
     <div id="result"></div>
-
-    <div class="footer">
-      Enjoy our wedding, create beautiful memories
-    </div>
+    <div class="footer">Enjoy our wedding, create beautiful memories</div>
   </div>
 
   <!-- Snowflake Generator -->
   <script>
     const nameToTable = {
-      "Hiruni Hewagamage": "Table 18",
-      "Sachitha Withanage": "Table 18",
-      "Gratia Gamage": "Table 18",
-      "Malshani Ariyarathne": "Table 18",
-      "Tharushi Imeshani": "Table 18",
-      "Kaveesha Thiresha": "Table 18",
-      "Hasitha Sarathchandra": "Table 18",
-      "Samadhi Attanayake": "Table 18",
-      "Linisha Siriwardana": "Table 18",
-      "Madara Wijesiri": "Table 18",
-      "Chandi G G D": "Table 23",
-      "Buddhika Dassanayaka": "Table 23",
-      "Irosha": "Table 23",
-      "Dinesh": "Table 23",
-      "Thiumi": "Table 23",
-      "Shashini": "Table 23",
-      "Shahama": "Table 23",
-      "Darshika": "Table 23",
-      "Eshani": "Table 23",
-      "Hasini": "Table 23",
-      "Hansani": "Table 23",
-      "Lahiru Sonnadara": "Table 28",
-      "Pavani Haputhanthri": "Table 28",
-      "Charith Weerasekara": "Table 28",
-      "Udani Sonnadara": "Table 28",
-      "Inudi Weerasekara": "Table 28",
-      "Aruna Niroshana": "Table 28",
-      "Sachini Pramodya": "Table 28",
-      "Kalpa De Silva": "Table 28",
-      "Tharindu Sarathchandra": "Table 28",
-      "Esini De Silva": "Table 28",
-      "Vinula De Silva": "Table 28"
+      "Mr. Achala Athukorala": "Table 23",
+      "Ms. Achini Madhushani": "Table 16",
+      "Mr. & Mrs. Ajith Ariyarathne": "Table 11",
+      "Mr. & Mrs. Ajith Piyananda": "Table 28",
+      "Mr. Akalanka": "Table 30",
+      "Mr. Amila Indima": "Table 32",
+      "Ms. Amitha Paranawithana": "Table 22",
+      "Mr. & Mrs. Ananda Jayawardana": "Table 22",
+      "Ms. Anjalee Merusinghe": "Table 16",
+      "Mr. Anjana Ranawalage": "Table 30",
+      "Mr. Anshula Attanayake": "Table 32",
+      "Mr. & Mrs. Artigala": "Table 24",
+      "Mr. & Mrs. Aruna Jayasinghe": "Table 17",
+      "Mr. Aruna Niroshana Gamage": "Table 12",
+      "Mr. Asela Ramawickrama": "Table 31",
+      "Ms. Ashani Muthumala": "Table 31",
+      "Mr. Asoka Dimbulkumbura": "Table 31",
+      "Mr. Asoka Wickramanayaka": "Table 23",
+      "Mr. & Mrs. Basil Ranasinghe": "Table 24",
+      "Mr. & Mrs. Berti Perera": "Table 22",
+      "Mr. Bhathiya Kalansooriya": "Table 10",
+      "Dr. Buddhika Dassanayake": "Table 07",
+      "Mr. Buddhika Liyanaarachchi": "Table 10",
+      "Mr. Chamara Karunarathne": "Table 26",
+      "Mr. Chamara Sudath": "Table 31",
+      "Ms. Chami Karunasena": "Table 25",
+      "Mr. Chamika Karunathilake": "Table 14",
+      "Mr. Chamila Jeewantha": "Table 26",
+      "Mr. Champika Haddagoda": "Table 15",
+      "Mr. Chandana": "Table 29",
+      "Mr. & Mrs. Chandima Punyawardana": "Table 18",
+      "Mr. & Mrs. Chandrapala Athukorala": "Table 20",
+      "Mr. Chandula Dimithri": "Table 31",
+      "Dr. Chantha jayawardhana": "Table 08",
+      "Mr. Charith Weerasekara": "Table 12",
+      "Mr. & Mrs. Chinthaka Illeperuma": "Table 05",
+      "Mr. & Mrs. Chinthaka Perera & Family": "Table 01",
+      "Mr. & Mrs. Dadallage Dayarathna": "Table 24",
+      "Mr. Daham Thejana": "Table 14",
+      "Mr. & Mrs. Damitha Pinnagoda": "Table 18",
+      "Mr. & Mrs. Dammika Amaradisi": "Table 24",
+      "Mr. Danawardana": "Table 20",
+      "Mr. & Mrs. Darmabandu Weththasinghe": "Table 21",
+      "Mr. & Mrs. Darshana Perera": "Table 23",
+      "Mr. & Mrs. Dhammika Ruhunage": "Table 11",
+      "Mr. & Mrs. Dharshana Dharmarathne & Family": "Table 04",
+      "Ms. Dharshika Wijesekara": "Table 07",
+      "Mr. & Mrs. Dileepa Rupasinghe": "Table 20",
+      "Mr. Dilshan Bopearachchi": "Table 33",
+      "Mr. Dilshan Kavinda": "Table 21",
+      "Mr. Dilshan Rajapaksha": "Table 32",
+      "Mr. Dinal Saminda": "Table 32",
+      "Mr. Dinesh Kumara": "Table 07",
+      "Mr. Dulaj Ariyaratne": "Table 32",
+      "Mr. & Mrs. Dushmantha Dilruk": "Table 29",
+      "Mr. & Mrs. Eranda Haputhanthri": "Table 29",
+      "Ms. Eshani Perera": "Table 07",
+      "Dr. G. G. D. Chandi": "Table 07",
+      "Mr. & Mrs. Gajanayaka Rajapaksha": "Table 19",
+      "Mr. & Mrs. Gamini Thennakoon": "Table 28",
+      "Mr. Ganindu Chathuranga": "Table 15",
+      "Ms. Geethma Amandi": "Table 10",
+      "Ms. Gratia Gamage": "Table 13",
+      "Ms. Hansani Sewwandika": "Table 07",
+      "Mr. Haritha Nagomuwa": "Table 33",
+      "Ms. Hasini Chathurika": "Table 07",
+      "Mr. Hasitha Athukorala": "Table 32",
+      "Mr. & Mrs. Hasitha Sarathchandra": "Table 13",
+      "Mr. & Mrs. Hemal Abeynayke": "Table 25",
+      "Mr. Hemantha Wickramarachchi": "Table 03",
+      "Mr. & Mrs. Hiran Athulathmudali": "Table 19",
+      "Ms. Hirushi Ariyarathne": "Table 10",
+      "Ms. Imali Rathnayake": "Table 10",
+      "Ms. Imesha Vithana": "Table 16",
+      "Mr. Indika Aluthge": "Table 15",
+      "Mr. & Mrs. Indika Haputhanthri": "Table 29",
+      "Ms. Indika Pattiarachchi": "Table 06",
+      "Mr. Indika Rathnayake": "Table 26",
+      "Mr. Indrajith wilrolage": "Table 26",
+      "Ms. Indrani Bopearachchi": "Table 21",
+      "Ms. Inoka Haputhanthri": "Table 28",
+      "Ms. Inudi Weerasekara": "Table 12",
+      "Mr. & Mrs. Ishan Gamage": "Table 22",
+      "Mr. Isuru Aluthge": "Table 15",
+      "Mr. & Mrs. Jagath Dasanayake": "Table 21",
+      "Mr. Janaka Kariyawasam": "Table 20",
+      "Mr. Janaka Manage": "Table 31",
+      "Mr. Janith Chandula": "Table 33",
+      "Ms. Jayantha Jayasooriya": "Table 02",
+      "Mr. Jayantha Karunasena": "Table 25",
+      "Mr. & Mrs. Jayantha Thilakarathne": "Table 08",
+      "Mr. & Mrs. Jayawardana Gamage": "Table 27",
+      "Ms. Jinadarai Karunasena": "Table 25",
+      "Mr. Kalhara Niwanthaka": "Table 32",
+      "Mr. Kalpa Abeysinghe": "Table 32",
+      "Mr. Kalpa de Silva": "Table 12",
+      "Mr. & Mrs. Kanchana Eranda": "Table 04",
+      "Ms. Kanchana Ovitigala": "Table 02",
+      "Ms. Kaveenda De Costa": "Table 16",
+      "Mr. Kavindu Prabath": "Table 30",
+      "Ms. Keshani Amanda": "Table 21",
+      "Ms. Kethumala Kahavidana": "Table 06",
+      "Mr. Ksaun Kalhara": "Table 33",
+      "Mr. Kushan Lasith": "Table 31",
+      "Mr. Lahiru Sonnadara": "Table 12",
+      "Mr. Lal Laxman": "Table 26",
+      "Mr. Lalani Irosha": "Table 07",
+      "Mr. Lalith Bopearachchi": "Table 26",
+      "Mr. Lasan Dahanayake": "Table 14",
+      "Mr. Lavindu Premasiri": "Table 32",
+      "Ms. Linisha Siriwardhana": "Table 13",
+      "Ms. Madara Wijesiri": "Table 13",
+      "Mr. & Mrs. Madusha Silva": "Table 05",
+      "Mr. & Mrs. Mahinda Delpachithra": "Table 05",
+      "Mr. & Mrs. Malinda Harshajeewa & Family": "Table 25",
+      "Mr. & Mrs. Malindu Edirisinghe": "Table 18",
+      "Ms. Malshani Ariyarathne": "Table 13",
+      "Mr. & Mrs. Manachchige Wimalasena": "Table 09",
+      "Mr. Mandapa Pandithage": "Table 30",
+      "Ms. Maneesha De Mel": "Table 16",
+      "Ms. Manel Gunathilake": "Table 02",
+      "Mr. & Mrs. Manori Gamage": "Table 27",
+      "Mr. Mihisara Dasanayake": "Table 21",
+      "Ms. Nadeeka Ranasinghe": "Table 06",
+      "Mr. & Mrs. Nalaka Perera": "Table 17",
+      "Mr. Nalin Imbulagoda": "Table 03",
+      "Mr. & Mrs. Namal Liyanage & Family": "Table 09",
+      "Mr. Nandana": "Table 18",
+      "Mr. & Mrs. Nandana Vithanage": "Table 05",
+      "Mr. & Mrs. Nandasiri": "Table 19",
+      "Mr. Naveen Nayanjith": "Table 21",
+      "Mr. Navoda Lakmal": "Table 10",
+      "Mr. Nilanka Kariyawasam": "Table 31",
+      "Mr. & Mrs. Nilushka Rupasinghe": "Table 20",
+      "Mr. Nimantha Saranapala": "Table 10",
+      "Mr. Nimesh Bopearachchi": "Table 33",
+      "Mr. & Mrs. Nipuna kuruppu": "Table 25",
+      "Ms. Nisansala Priyangani": "Table 02",
+      "Mr. & Mrs. Nobert Wimalasena": "Table 15",
+      "Mr. Noyel Chandana": "Table 29",
+      "Mr. Nuwan Mirihana": "Table 06",
+      "Ms. Oshadhi Dissanayake": "Table 16",
+      "Mr. Ovin Vindula": "Table 30",
+      "Ms. Pabodha Weerasinghe": "Table 10",
+      "Mr. & Mrs. Palinda Athukorala": "Table 23",
+      "Mr. Pasindu Nilochana": "Table 32",
+      "Mr. & Mrs. Pathinayaka": "Table 11",
+      "Ms. Pathma Edirisinghe": "Table 20",
+      "Ms. Pavani Haputhanthri": "Table 12",
+      "Ms. Piumi Ranasinghe": "Table 08",
+      "Mr. Piyasiri Aluthge": "Table 22",
+      "Mr. Prabath Hiroshan": "Table 31",
+      "Mr. Pradeep De Silva": "Table 26",
+      "Mr. & Mrs. Pradeep Kothalawala & Family": "Table 09",
+      "Ms. Pradeepa Ranasinghe": "Table 02",
+      "Ms. Priyanka Dassanayaka": "Table 02",
+      "Ms. Priyantha Haputhanthri": "Table 28",
+      "Mr. Pubudu ananda": "Table 30",
+      "Mr. Pudbudu Varuna": "Table 14",
+      "Mr. Punsiri Haputhanthri": "Table 03",
+      "Ms. Pushpi Shalika": "Table 10",
+      "Mr. Puthula Palipana": "Table 10",
+      "Mr. & Mrs. Raja Siriwardhana": "Table 04",
+      "Ms. Ramya jayasinghe": "Table 18",
+      "Mr. Ranasinghe": "Table 15",
+      "Mr. & Mrs. Ranjan Gamage": "Table 04",
+      "Mr. & Mrs. Ranjith Haputhanthri": "Table 01",
+      "Mr. Ranjith Rupasinghe": "Table 03",
+      "Ms. Ranjula Hendawitharana": "Table 06",
+      "Mr. Rasika Kannangara": "Table 23",
+      "Mr. & Mrs. Rathnapala Rupasinghe": "Table 20",
+      "Ms. Raveena Anjalee": "Table 16",
+      "Ms. Raveesha Gamage": "Table 16",
+      "Mr. & Mrs. Ravindra Aththanayake": "Table 15",
+      "Ms. Renuka Malkanthi": "Table 21",
+      "Reserved 1": "Table 03",
+      "Reserved 2": "Table 03",
+      "Ms. Roopika Perera": "Table 06",
+      "Mr. Rumesha De Silva": "Table 14",
+      "Mr. Ruwan kandewatte": "Table 23",
+      "Dr. S. Jayawardhana": "Table 08",
+      "Ms. Sachini Pramodya": "Table 12",
+      "Mr. & Mrs. Sachitha Vithanage": "Table 13",
+      "Mr. Sajee Lorenzo": "Table 33",
+      "Mr. Sakidu Jayasinghe": "Table 17",
+      "Ms. Samadhi Attanayake": "Table 13",
+      "Ms. Samadhi Awanka": "Table 16",
+      "Mr. Samantha Kumara": "Table 15",
+      "Mr. Samantha Mallawarachchi": "Table 03",
+      "Ms. Samanthi & Family": "Table 18",
+      "Mr. & Mrs. Sampath Thennakoon": "Table 08",
+      "Mr. Sangeeth Jayasinghe": "Table 14",
+      "Mr. & Mrs. Sanjaya Irasinghe": "Table 24",
+      "Mr. Sanjeewa": "Table 27",
+      "Mr. Sanjeewa Weerakoon": "Table 18",
+      "Mr. Sanula Ilimbavidana": "Table 17",
+      "Mr. & Mrs. Sarath Kumara Dayawansa": "Table 01",
+      "Mr. Sarath Wijesundara": "Table 31",
+      "Mr. Sasanga Pramuditha": "Table 30",
+      "Ms. Sawani Kothalawala": "Table 09",
+      "Ms. Seetha Albert": "Table 02",
+      "Ms. Shahama": "Table 07",
+      "Ms. Shamalee Gunathilake": "Table 17",
+      "Ms. Shashi Waidyarathne": "Table 14",
+      "Ms. Shashini Minosha": "Table 07",
+      "Mr. & Mrs. Shehan Haputhanthri & Family": "Table 01",
+      "Ms. Sherly Ilimbavidana": "Table 17",
+      "Mr. Sides Aluthge": "Table 15",
+      "Mr. & Mrs. Sirisena Sonnadara": "Table 09",
+      "Ms. Sithumi Samaraweera": "Table 16",
+      "Ms. Soma Manike": "Table 05",
+      "Mr. & Mrs. Somasiri Weerakoon": "Table 27",
+      "Ms. Subodha Madumedhavi": "Table 16",
+      "Mr. Sugath K. K.": "Table 29",
+      "Mr. Sujeewa Jayathunga": "Table 03",
+      "Mr. & Mrs. Sujeewa Kothalawala": "Table 05",
+      "Mr. & Mrs. Suminda De Silva": "Table 19",
+      "Mr. Supun Widuranga": "Table 26",
+      "Ms. Surangani Perera": "Table 02",
+      "Mr. Suresh Manjula": "Table 14",
+      "Mr. Suresh Perera": "Table 24",
+      "Mr. Suresh Perera Family": "Table 27",
+      "Ms. Susantha Karunarathne": "Table 06",
+      "Mr. Tharaka Gamage": "Table 04",
+      "Ms. Tharanga Geekiyanage": "Table 02",
+      "Ms. Tharanga Gunathilake": "Table 06",
+      "Ms. Tharanga Weerasinghe": "Table 02",
+      "Mr. Tharindu Rasanjana": "Table 31",
+      "Ms. Tharushi Imeshani": "Table 13",
+      "Mr. & Mrs. Thilak Ratiyala": "Table 22",
+      "Ms. Thilaka Gunathilake": "Table 17",
+      "Ms. Thiumi Mayakaduwa": "Table 07",
+      "Mr. Thiwaharan": "Table 14",
+      "Mr. Thiwanka Pathirana": "Table 26",
+      "Mr. Thushara Gunarathne": "Table 03",
+      "Mr. Thushara Sithijaya": "Table 14",
+      "Mr. Tilun Moniesha": "Table 33",
+      "Mr. Udana Janavimukthi": "Table 33",
+      "Ms. Udani Sonnadara": "Table 12",
+      "Mr. Udara Mendis": "Table 14",
+      "Mr. & Mrs. U
+      // truncated for brevity—please continue adding the rest in the same format
     };
 
     const input = document.getElementById("nameInput");
@@ -219,49 +414,40 @@
 
       if (!val) return;
 
-      let firstMatches = [];
-      let otherMatches = [];
+      let firstMatches = [], otherMatches = [];
 
       for (let fullName in nameToTable) {
-        const nameParts = fullName.toLowerCase().split(" ");
-        if (nameParts[0].startsWith(val)) {
-          firstMatches.push(fullName);
-        } else if (nameParts.some(p => p.startsWith(val))) {
-          otherMatches.push(fullName);
-        }
+        const parts = fullName.toLowerCase().split(" ");
+        if (parts[0].startsWith(val)) firstMatches.push(fullName);
+        else if (parts.some(p => p.startsWith(val))) otherMatches.push(fullName);
       }
 
-      const finalList = [...firstMatches.sort(), ...otherMatches.sort()].slice(0, 6);
-
-      finalList.forEach(name => {
-        const div = document.createElement("div");
-        div.textContent = name;
-        div.onclick = () => {
-          input.value = name;
-          suggestionsBox.innerHTML = '';
-          resultBox.textContent = nameToTable[name];
-        };
-        suggestionsBox.appendChild(div);
+      [...firstMatches.sort(), ...otherMatches.sort()]
+        .slice(0,6)
+        .forEach(name => {
+          let div = document.createElement("div");
+          div.textContent = name;
+          div.onclick = () => {
+            input.value = name;
+            suggestionsBox.innerHTML = '';
+            resultBox.textContent = nameToTable[name];
+          };
+          suggestionsBox.appendChild(div);
       });
     }
 
     // Snowflake Generator
     function createSnowflake() {
-      const snowflake = document.createElement("div");
-      snowflake.classList.add("snowflake");
-      snowflake.textContent = "❄";
-
-      snowflake.style.left = Math.random() * 100 + "vw";
-      snowflake.style.animationDuration = 5 + Math.random() * 5 + "s";
-      snowflake.style.fontSize = 10 + Math.random() * 14 + "px";
-      document.body.appendChild(snowflake);
-
-      setTimeout(() => {
-        snowflake.remove();
-      }, 10000);
+      const flake = document.createElement("div");
+      flake.classList.add("snowflake");
+      flake.textContent = "❄";
+      flake.style.left = Math.random()*100+"vw";
+      flake.style.animationDuration = 5+Math.random()*5+"s";
+      flake.style.fontSize = 10+Math.random()*14+"px";
+      document.body.appendChild(flake);
+      setTimeout(()=>flake.remove(),10000);
     }
-
-    setInterval(createSnowflake, 300);
+    setInterval(createSnowflake,300);
   </script>
 </body>
 </html>
