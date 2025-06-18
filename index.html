@@ -35,7 +35,7 @@
 
     h2 {
       font-family: 'Great Vibes', cursive;
-      font-size: 72px;
+      font-size: 56px;
       font-weight: bold;
       color: peachpuff;
       margin: 20px 0 10px;
@@ -44,7 +44,7 @@
 
     h1 {
       font-family: 'Dancing Script', cursive;
-      font-size: 36px;
+      font-size: 28px;
       margin: 0;
       font-style: italic;
       color: #8b6f4e;
@@ -53,17 +53,9 @@
 
     .search-container {
       margin-top: 20px;
-      position: sticky;
-      top: 0;
-      background-color: rgba(255, 229, 208, 0.95);
-      padding: 10px 10px 0;
-      width: 90vw;
+      position: relative;
+      width: 90%;
       max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 12px 12px 0 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-      z-index: 20;
     }
 
     label {
@@ -72,7 +64,7 @@
 
     input[type="text"] {
       width: 100%;
-      padding: 16px 44px 16px 16px; /* padding right for clear button */
+      padding: 14px 16px;
       border: none;
       border-radius: 8px;
       font-size: 20px;
@@ -81,23 +73,12 @@
       font-weight: bold;
       box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
       outline-offset: 2px;
+      outline-color: #f5c7a9;
+      caret-color: #8b6f4e;
     }
 
-    #clearBtn {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      color: #4a2e1f;
-      cursor: pointer;
-      user-select: none;
-      padding: 0;
-      display: none;
-      z-index: 25;
-      line-height: 1;
+    input[type="text"]:focus {
+      outline-style: solid;
     }
 
     .suggestions {
@@ -105,54 +86,49 @@
       color: #4a2e1f;
       position: absolute;
       width: 100%;
-      border-radius: 0 0 12px 12px;
-      max-height: 200px;
+      border-radius: 0 0 8px 8px;
+      max-height: 150px;
       overflow-y: auto;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
-      font-size: 18px;
-      user-select: none;
-      z-index: 15;
+      z-index: 10;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease;
+    }
+
+    .suggestions:empty {
+      display: none;
     }
 
     .suggestions div {
-      padding: 14px 12px;
+      padding: 12px 14px;
       cursor: pointer;
-      border-bottom: 1px solid #d9b99f;
-      transition: background-color 0.15s ease;
-    }
-
-    .suggestions div:last-child {
-      border-bottom: none;
+      font-size: 18px;
+      user-select: none;
     }
 
     .suggestions div:hover,
-    .suggestions div:active {
+    .suggestions div:focus {
       background-color: #ffd4b2;
-      transform: scale(0.98);
-      transition: background-color 0.15s ease, transform 0.1s ease;
+      outline: none;
     }
 
     #result {
-      margin-top: 24px;
-      font-size: 32px;
+      margin-top: 25px;
+      font-size: 28px;
       font-weight: bold;
       color: #ffeadd;
       background-color: #8b7461;
-      padding: 16px 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      min-height: 48px;
-      user-select: text;
+      padding: 14px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      min-height: 40px;
+      user-select: none;
     }
 
     .footer {
       margin-top: 60px;
       font-family: 'Dancing Script', cursive;
       font-style: italic;
-      font-size: 36px;
+      font-size: 32px;
       color: #f4a896;
       text-shadow: 1px 1px 2px #00000080;
       padding: 0 10px;
@@ -185,34 +161,22 @@
 
     @media (max-width: 400px) {
       h2 {
-        font-size: 56px;
+        font-size: 40px;
       }
       h1 {
-        font-size: 28px;
-      }
-      .footer {
-        font-size: 28px;
-      }
-      #result {
-        font-size: 28px;
-        padding: 14px 18px;
-      }
-      .search-container {
-        width: 95vw;
-        padding-left: 12px;
-        padding-right: 12px;
+        font-size: 22px;
       }
       input[type="text"] {
         font-size: 18px;
-        padding: 14px 44px 14px 14px;
+        padding: 12px 14px;
       }
-      .suggestions div {
-        font-size: 16px;
-        padding: 12px 10px;
+      #result {
+        font-size: 24px;
+        padding: 12px 18px;
       }
-      #clearBtn {
-        font-size: 22px;
-        right: 14px;
+      .footer {
+        font-size: 24px;
+        margin-top: 40px;
       }
     }
   </style>
@@ -224,12 +188,11 @@
 
     <div class="search-container">
       <label for="nameInput">Name</label>
-      <input type="text" id="nameInput" placeholder="Enter your name" aria-label="Name search input" autocomplete="off"/>
-      <button id="clearBtn" aria-label="Clear input">✕</button>
+      <input type="text" id="nameInput" placeholder="Enter your name" oninput="showSuggestions()" aria-label="Name search input" autocomplete="off" />
       <div class="suggestions" id="suggestions"></div>
     </div>
 
-    <div id="result" aria-live="polite" role="region"></div>
+    <div id="result"></div>
 
     <div class="footer">
       Enjoy our wedding, create beautiful memories
@@ -276,19 +239,13 @@
     const input = document.getElementById("nameInput");
     const suggestionsBox = document.getElementById("suggestions");
     const resultBox = document.getElementById("result");
-    const clearBtn = document.getElementById("clearBtn");
 
     function showSuggestions() {
       const val = input.value.trim().toLowerCase();
       suggestionsBox.innerHTML = '';
       resultBox.textContent = '';
 
-      if (!val) {
-        clearBtn.style.display = 'none';
-        return;
-      } else {
-        clearBtn.style.display = 'block';
-      }
+      if (!val) return;
 
       let firstMatches = [];
       let otherMatches = [];
@@ -312,42 +269,18 @@
           input.value = name;
           suggestionsBox.innerHTML = '';
           resultBox.textContent = nameToTable[name];
-          clearBtn.style.display = 'block';
         };
-        div.onkeydown = e => {
-          if(e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
+        div.onkeypress = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
             div.click();
           }
-        };
+        }
         suggestionsBox.appendChild(div);
       });
     }
 
-    function clearInput() {
-      input.value = '';
-      suggestionsBox.innerHTML = '';
-      resultBox.textContent = '';
-      clearBtn.style.display = 'none';
-      input.focus();
-    }
-
-    input.addEventListener('input', showSuggestions);
-    clearBtn.addEventListener('click', clearInput);
-
-    // Scroll suggestions into view on focus (especially for mobile keyboards)
-    input.addEventListener('focus', () => {
-      setTimeout(() => {
-        suggestionsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 300);
-    });
-
-    // Snowflake Generator with mobile optimization
+    // Snowflake Generator
     function createSnowflake() {
-      // Reduce snowflakes on small screens for performance
-      if(window.matchMedia("(max-width: 600px)").matches){
-        if(Math.random() > 0.3) return;
-      }
       const snowflake = document.createElement("div");
       snowflake.classList.add("snowflake");
       snowflake.textContent = "❄";
