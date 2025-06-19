@@ -27,7 +27,7 @@
       backdrop-filter: blur(3px);
       background-color: rgba(0, 0, 0, 0.4);
       min-height: 100vh;
-      padding: 80px 20px 30px;
+      padding: 120px 20px 30px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -39,10 +39,18 @@
       font-size: 56px;
       font-weight: bold;
       color: peachpuff;
-      margin: 20px 0 10px;
+      margin: 0px 0 10px;
       text-shadow: 2px 2px 6px #00000060;
+	  
     }
-
+	.main-section {
+      margin-top: 40px; /* Adjust how far down to push "Find your seat here" and search */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+	
     h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 28px;
@@ -53,9 +61,9 @@
     }
 
     .search-container {
-      margin-top: 20px;
+      margin-top: 0px;
       position: relative;
-      width: 90%;
+      width: 100%;
       max-width: 400px;
     }
 
@@ -101,7 +109,7 @@
     }
 
     #result {
-      margin-top: 25px;
+      margin-top: 0px;
       font-size: 28px;
       font-weight: bold;
       color: #ffeadd;
@@ -113,13 +121,14 @@
     }
 
     .footer {
-      margin-top: 60px;
+      margin-top: 55px;
       font-family: 'Dancing Script', cursive;
       font-style: italic;
       font-size: 32px;
       color: #f4a896;
       text-shadow: 1px 1px 2px #00000080;
     }
+	
 
     .snowflake {
       color: white;
@@ -144,11 +153,15 @@
       #result { font-size: 24px; }
       .footer { font-size: 24px; }
     }
+
   </style>
 </head>
 <body>
   <div class="overlay">
-    <h2>Lasindu & Sachini</h2>
+  <h2>Lasindu & Sachini</h2>
+
+  <!-- New wrapper starts -->
+  <div class="main-section">
     <h1>Find your seat here</h1>
 
     <div class="search-container">
@@ -157,50 +170,54 @@
     </div>
 
     <div id="result"></div>
-    <div class="footer">Enjoy our wedding, create beautiful memories</div>
   </div>
+  <!-- New wrapper ends -->
+
+  <div class="footer">Enjoy our wedding, create beautiful memories</div>
+</div>
+
 
   <script>
     const nameToTable = {
-      "Mr. Achala Athukorala": "Table 23",
-      "Ms. Achini Madhushani": "Table 16",
-      "Mr. & Mrs. Ajith Ariyarathne": "Table 11",
-      "Mr. & Mrs. Ajith Piyananda": "Table 28",
-      "Mr. Akalanka": "Table 30",
-      "Mr. Amila Indima": "Table 32",
-      "Ms. Amitha Paranawithana": "Table 22",
-      "Mr. & Mrs. Ananda Jayawardana": "Table 22",
-      "Ms. Anjalee Merusinghe": "Table 16",
-      "Mr. Anjana Ranawalage": "Table 30",
-      "Mr. Anshula Attanayake": "Table 32",
-      "Mr. & Mrs. Artigala": "Table 24",
-      "Mr. & Mrs. Aruna Jayasinghe": "Table 17",
-      "Mr. Aruna Niroshana Gamage": "Table 12",
-      "Mr. Asela Ramawickrama": "Table 31",
-      "Ms. Ashani Muthumala": "Table 31",
-      "Mr. Asoka Dimbulkumbura": "Table 31",
-      "Mr. Asoka Wickramanayaka": "Table 23",
-      "Mr. & Mrs. Basil Ranasinghe": "Table 24",
-      "Mr. & Mrs. Berti Perera": "Table 22",
-      "Mr. Bhathiya Kalansooriya": "Table 10",
-      "Dr. Buddhika Dassanayake": "Table 07",
-      "Mr. Buddhika Liyanaarachchi": "Table 10",
-      "Mr. Chamara Karunarathne": "Table 26",
-      "Mr. Chamara Sudath": "Table 31",
-      "Ms. Chami Karunasena": "Table 25",
-      "Mr. Chamika Karunathilake": "Table 14",
-      "Mr. Chamila Jeewantha": "Table 26",
-      "Mr. Champika Haddagoda": "Table 15",
-      "Mr. Chandana": "Table 29",
-      "Mr. & Mrs. Chandima Punyawardana": "Table 18",
-      "Mr. & Mrs. Chandrapala Athukorala": "Table 20",
-      "Mr. Chandula Dimithri": "Table 31",
-      "Dr. Chantha jayawardhana": "Table 08",
-      "Mr. Charith Weerasekara": "Table 12",
-      "Mr. & Mrs. Chinthaka Illeperuma": "Table 05",
-      "Mr. & Mrs. Chinthaka Perera & Family": "Table 01",
-      "Mr. & Mrs. Dadallage Dayarathna": "Table 24",
-      "Mr. Daham Thejana": "Table 14",
+		"Mr. Achala Athukorala": "Table 23",
+		"Ms. Achini Madhushani": "Table 16",
+		"Mr. & Mrs. Ajith Ariyarathne": "Table 11",
+		"Mr. & Mrs. Ajith Piyananda": "Table 28",
+		"Mr. Akalanka": "Table 30",
+		"Mr. Amila Indima": "Table 32",
+		"Ms. Amitha Paranawithana": "Table 22",
+		"Mr. & Mrs. Ananda Jayawardana": "Table 22",
+		"Ms. Anjalee Merusinghe": "Table 16",
+		"Mr. Anjana Ranawalage": "Table 30",
+		"Mr. Anshula Attanayake": "Table 32",
+		"Mr. & Mrs. Artigala": "Table 24",
+		"Mr. & Mrs. Aruna Jayasinghe": "Table 17",
+		"Mr. Aruna Niroshana Gamage": "Table 12",
+		"Mr. Asela Ramawickrama": "Table 31",
+		"Ms. Ashani Muthumala": "Table 31",
+		"Mr. Asoka Dimbulkumbura": "Table 31",
+		"Mr. Asoka Wickramanayaka": "Table 23",
+		"Mr. & Mrs. Basil Ranasinghe": "Table 24",
+		"Mr. & Mrs. Berti Perera": "Table 22",
+		"Mr. Bhathiya Kalansooriya": "Table 10",
+		"Dr. Buddhika Dassanayake": "Table 07",
+		"Mr. Buddhika Liyanaarachchi": "Table 10",
+		"Mr. Chamara Karunarathne": "Table 26",
+		"Mr. Chamara Sudath": "Table 31",
+		"Ms. Chami Karunasena": "Table 25",
+		"Mr. Chamika Karunathilake": "Table 14",
+		"Mr. Chamila Jeewantha": "Table 26",
+		"Mr. Champika Haddagoda": "Table 15",
+		"Mr. Chandana": "Table 29",
+		"Mr. & Mrs. Chandima Punyawardana": "Table 18",
+		"Mr. & Mrs. Chandrapala Athukorala": "Table 20",
+		"Mr. Chandula Dimithri": "Table 31",
+		"Dr. Chantha jayawardhana": "Table 08",
+		"Mr. Charith Weerasekara": "Table 12",
+		"Mr. & Mrs. Chinthaka Illeperuma": "Table 05",
+		"Mr. & Mrs. Chinthaka Perera & Family": "Table 01",
+		"Mr. & Mrs. Dadallage Dayarathna": "Table 24",
+		"Mr. Daham Thejana": "Table 14",
 		"Mr. & Mrs. Damitha Pinnagoda": "Table 18",
 		"Mr. & Mrs. Dammika Amaradisi": "Table 24",
 		"Mr. Danawardana": "Table 20",
